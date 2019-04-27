@@ -8,6 +8,5 @@
     {
         [Display(Name = "Image")]
         public IFormFile ImageFile { get; set; }
-
     }
 }

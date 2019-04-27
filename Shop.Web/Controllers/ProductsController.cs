@@ -1,15 +1,15 @@
 ﻿namespace Shop.Web.Controllers
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Data;
     using Data.Entities;
     using Helpers;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Shop.Web.Models;
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class ProductsController : Controller
     {
@@ -64,7 +64,6 @@
                 {
                     var guid = Guid.NewGuid().ToString();
                     var file = $"{guid}.jpg";
-
 
                     path = Path.Combine(
                         Directory.GetCurrentDirectory(),

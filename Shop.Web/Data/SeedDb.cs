@@ -4,8 +4,8 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
-    using Microsoft.AspNetCore.Identity;
     using Helpers;
+    using Microsoft.AspNetCore.Identity;
 
     public class SeedDb
     {

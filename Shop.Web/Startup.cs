@@ -43,7 +43,6 @@
             });
 
             services.AddTransient<SeedDb>();
-
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IUserHelper, UserHelper>();

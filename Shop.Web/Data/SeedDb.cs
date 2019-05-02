@@ -1,17 +1,17 @@
 ﻿namespace Shop.Web.Data
 {
+    using Entities;
+    using Helpers;
+    using Microsoft.AspNetCore.Identity;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Entities;
-    using Microsoft.AspNetCore.Identity;
-    using Helpers;
 
     public class SeedDb
     {
         private readonly DataContext context;
         private readonly IUserHelper userHelper;
-        private Random random;
+        private readonly Random random;
 
         public SeedDb(DataContext context, IUserHelper userHelper)
         {
@@ -23,6 +23,9 @@
         public async Task SeedAsync()
         {
             await this.context.Database.EnsureCreatedAsync();
+
+            await this.userHelper.CheckRoleAsync("Admin");
+            await this.userHelper.CheckRoleAsync("Customer");
 
             var user = await this.userHelper.GetUserByEmailAsync("jzuluaga55@gmail.com");
             if (user == null)
@@ -41,6 +44,14 @@
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
+
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+            }
+
+            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
+            if (!isInRole)
+            {
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
             }
 
 

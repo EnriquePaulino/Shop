@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@
     {
         public int Id { get; set; }
 
+        [MaxLength(50, ErrorMessage = "the field {0} only can contain {1} characters")]
         public string Name { get; set; }
     }
 }

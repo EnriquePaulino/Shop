@@ -3,6 +3,7 @@
     using Data.Entities;
     using Microsoft.AspNetCore.Identity;
     using Models;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IUserHelper
@@ -36,5 +37,11 @@
         Task<string> GeneratePasswordResetTokenAsync(User user);
 
         Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
+
+        Task<List<User>> GetAllUsersAsync();
+
+        Task RemoveUserFromRoleAsync(User user, string roleName);
+
+        Task DeleteUserAsync(User user);
     }
 }

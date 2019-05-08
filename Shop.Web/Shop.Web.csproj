@@ -249,6 +249,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shop.Common\Shop.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="Views\Account\ChangePassword.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -34,5 +34,4 @@
         [Display(Name = "Is Admin?")]
         public bool IsAdmin { get; set; }
     }
-
 }

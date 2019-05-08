@@ -1,14 +1,17 @@
-﻿using Shop.UIForms.ViewModels;
-using Shop.UIForms.Views;
-using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace Shop.UIForms
+﻿namespace Shop.UIForms
 {
+    using Shop.UIForms.ViewModels;
+    using Shop.UIForms.Views;
+    using Xamarin.Forms;
+    using Xamarin.Forms.Xaml;
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class App : Application
     {
+        public static NavigationPage Navigator { get; internal set; }
+
+        public static MasterPage Master { get; internal set; }
+
         public App()
         {
             InitializeComponent();

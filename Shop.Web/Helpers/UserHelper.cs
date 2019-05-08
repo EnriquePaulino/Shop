@@ -9,16 +9,16 @@
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        private readonly RoleManager<IdentityRole> roleManage;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public UserHelper(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            RoleManager<IdentityRole> roleManage)
+            RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.roleManage = roleManage;
+            this.roleManager = roleManager;
         }
 
         public async Task<IdentityResult> AddUserAsync(User user, string password)
@@ -38,10 +38,10 @@
 
         public async Task CheckRoleAsync(string roleName)
         {
-            var roleExists = await this.roleManage.RoleExistsAsync(roleName);
+            var roleExists = await this.roleManager.RoleExistsAsync(roleName);
             if (!roleExists)
             {
-                await this.roleManage.CreateAsync(new IdentityRole
+                await this.roleManager.CreateAsync(new IdentityRole
                 {
                     Name = roleName
                 });
@@ -85,5 +85,30 @@
                 password,
                 false);
         }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+        {
+            return await this.userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await this.userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<User> GetUserByIdAsync(string userId)
+        {
+            return await this.userManager.FindByIdAsync(userId);
+        }
+        public async Task<string> GeneratePasswordResetTokenAsync(User user)
+        {
+            return await this.userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
+        {
+            return await this.userManager.ResetPasswordAsync(user, token, password);
+        }
+
     }
 }

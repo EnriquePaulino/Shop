@@ -11,6 +11,7 @@
 
             <!-- Parameters -->
             <x:String x:Key="UrlAPI">https://shopzulu.azurewebsites.net</x:String>
+            <!--<x:String x:Key="UrlAPI">https://localhost:44313</x:String>-->
 
         </ResourceDictionary>
     </Application.Resources>

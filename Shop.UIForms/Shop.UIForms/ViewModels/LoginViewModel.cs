@@ -1,18 +1,23 @@
 ﻿namespace Shop.UIForms.ViewModels
 {
-    using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
+    using Newtonsoft.Json;
+    using Shop.Common.Helpers;
     using Shop.Common.Models;
     using Shop.Common.Services;
+    using Shop.UIForms.Helpers;
     using Shop.UIForms.Views;
+    using System.Windows.Input;
     using Xamarin.Forms;
 
     public class LoginViewModel : BaseViewModel
     {
 
-        private ApiService apiService;
+        private readonly ApiService apiService;
         private bool isRunning;
         private bool isEnabled;
+
+        public bool IsRemember { get; set; }
 
         public bool IsRunning
         {
@@ -36,28 +41,29 @@
         public LoginViewModel()
         {
             this.apiService = new ApiService();
-            this.Email = "jzuluaga55@gmail.com";
-            this.Password = "123456";
+            //this.Email = "jzuluaga55@gmail.com";
+            //this.Password = "123456";
             this.IsEnabled = true;
+            this.IsRemember = true;
         }
-       
+
         private async void Login()
         {
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter an email.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Password))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter an password.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.PasswordError,
+                    Languages.Accept);
                 return;
             }
 
@@ -83,9 +89,9 @@
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error", 
-                    "Email or password incorrect.", 
-                    "Accept");
+                    Languages.Error,
+                    Languages.LoginError,
+                    Languages.Accept);
                 return;
             }
 
@@ -95,8 +101,13 @@
             mainViewModel.UserPassword = this.Password;
             mainViewModel.Token = token;
             mainViewModel.Products = new ProductsViewModel();
+
+            Settings.IsRemember = this.IsRemember;
+            Settings.UserEmail = this.Email;
+            Settings.UserPassword = this.Password;
+            Settings.Token = JsonConvert.SerializeObject(token);
+
             Application.Current.MainPage = new MasterPage();
         }
-
     }
 }

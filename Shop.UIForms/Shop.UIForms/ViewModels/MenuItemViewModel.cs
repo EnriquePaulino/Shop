@@ -2,6 +2,7 @@
 {
     using Common.Models;
     using GalaSoft.MvvmLight.Command;
+    using Shop.Common.Helpers;
     using Shop.UIForms.Views;
     using System;
     using System.Windows.Input;
@@ -25,11 +26,15 @@
                     await App.Navigator.PushAsync(new SetupPage());
                     break;
                 default:
+                    Settings.IsRemember = false;
+                    Settings.Token = string.Empty;
+                    Settings.UserEmail = string.Empty;
+                    Settings.UserPassword = string.Empty;
+
                     MainViewModel.GetInstance().Login = new LoginViewModel();
                     Application.Current.MainPage = new NavigationPage(new LoginPage());
                     break;
             }
-
         }
     }
 }
